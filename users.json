@@ -1,0 +1,26 @@
+{
+    "user1":{
+    "id":1,
+    "name":"Teszt László",
+    "e-mail":"&quot;laszlo.teszt@example.com",
+    "age":35,
+    "active":true,
+    "favorite_color":["blue","green","yellpw"]
+    },
+   "user2": {
+    "id":2,
+    "name":"Teszt Éva",
+    "e-mail":"&quot;eva.teszt@example.com",
+    "age":28,
+    "active":false,
+    "favorite_color":"-"
+    },
+    "user3":{
+        "id":3,
+        "name":"Teszt Péter",
+        "e-mail":"&quot;peter.teszt@example.com",
+        "age":40,
+        "active":true,
+        "favorite_color":["red","black"]
+    }
+}
