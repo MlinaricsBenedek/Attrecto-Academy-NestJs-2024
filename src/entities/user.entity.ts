@@ -2,27 +2,27 @@ import {
   Column,
   Entity,
   PrimaryGeneratedColumn,
-  ManyToOne,
-  JoinColumn,
   UpdateDateColumn,
   CreateDateColumn,
+  OneToMany,
 } from 'typeorm';
-import { UserEntity } from './user.entity';
+import { CourseEntity } from './course.entity';
 @Entity()
-export class CourseEntity {
+export class UserEntity {
   @PrimaryGeneratedColumn()
   id: number;
+  @Column({ unique: true })
+  email: string;
   @Column()
-  title: string;
-  @ManyToOne(() => UserEntity, (user) => user.course, { eager: true })
-  @JoinColumn({ name: 'id' })
-  author: UserEntity;
+  lastname: string;
   @Column()
-  description: string;
+  firstname: string;
   @Column()
-  url: string;
+  password: string;
   @CreateDateColumn({ type: 'datetime' })
   createdAt: Date;
   @UpdateDateColumn({ type: 'datetime' })
   updatedAt: Date;
+  @OneToMany(() => CourseEntity, (course) => course.author)
+  course: CourseEntity[];
 }
