@@ -2,32 +2,35 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { UserEntity } from './user.entity';
+import { CourseEntity } from './course.entity';
 
 @Entity()
-export class CourseEntity {
+export class UserEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  title: string;
-
-  @ManyToOne(() => UserEntity, (user) => user.courses, { onDelete: 'CASCADE' })
-  author: UserEntity;
+  @Column({ unique: true })
+  email: string;
 
   @Column()
-  description: string;
+  firstName: string;
 
   @Column()
-  url: string;
+  lastName: string;
+
+  @Column()
+  password: string;
 
   @CreateDateColumn({ type: 'datetime' })
   createdAt: Date;
 
   @UpdateDateColumn({ type: 'datetime' })
   updatedAt: Date;
+
+  @OneToMany(() => CourseEntity, (course) => course.author)
+  courses: CourseEntity[];
 }
