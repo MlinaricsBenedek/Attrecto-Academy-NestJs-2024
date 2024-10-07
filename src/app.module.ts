@@ -4,6 +4,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { CourseEntity } from './entities/course.entity';
 import { UserEntity } from './entities/user.entity';
+import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -14,6 +16,8 @@ import { UserEntity } from './entities/user.entity';
       synchronize: true,
     }),
     CourseModule,
+    UserModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],
