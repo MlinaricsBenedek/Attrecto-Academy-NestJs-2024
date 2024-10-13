@@ -1,21 +1,33 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 
 import { InjectRepository } from '@nestjs/typeorm';
 import { UpdateUserDTO } from 'src/user/dto/update-user.dto';
-import { CourseEntity } from 'src/entities/course.entity';
 import { UserEntity } from 'src/entities/user.entity';
 import { Repository } from 'typeorm';
+import { CreateUserDTO } from './dto/create-user.dto';
+import { hash } from 'bcrypt';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
-    @InjectRepository(CourseEntity)
-    private readonly courseEntity: Repository<CourseEntity>,
   ) {}
-  async create({ email, firstName, lastName, password }) {
-    return this.userRepository.save({ email, firstName, lastName, password });
+  async create(createUserDTO: CreateUserDTO) {
+    try {
+      const hashedPasswrod = await hash(createUserDTO.password, 12);
+      const user = this.userRepository.save({
+        ...createUserDTO,
+        password: hashedPasswrod,
+      });
+      return user;
+    } catch (error) {
+      throw new BadRequestException();
+    }
   }
   async getOne(id: number) {
     const user = await this.userRepository.findOne({
