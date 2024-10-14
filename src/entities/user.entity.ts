@@ -2,6 +2,8 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinTable,
+  ManyToMany,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -33,4 +35,8 @@ export class UserEntity {
 
   @OneToMany(() => CourseEntity, (course) => course.author)
   courses: CourseEntity[];
+
+  @ManyToMany(() => CourseEntity, (course) => course.students)
+  @JoinTable({ name: 'enrolled_courses' })
+  enrolledCourses: CourseEntity[];
 }

@@ -1,4 +1,4 @@
-import { IsNumber, IsString } from 'class-validator';
+import { IsInt, IsNumber, IsPositive, IsString } from 'class-validator';
 
 export class CreateCourseDto {
   @IsString()
@@ -12,4 +12,10 @@ export class CreateCourseDto {
 
   @IsString()
   url: string;
+}
+
+export class AssignCourseDto {
+  @IsInt()
+  @IsPositive()
+  id: number;
 }
