@@ -6,6 +6,8 @@ import { CourseEntity } from './entities/course.entity';
 import { UserEntity } from './entities/user.entity';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
+import { ConfigModule } from '@nestjs/config';
+import { validate } from './config/validation';
 
 @Module({
   imports: [
@@ -18,6 +20,11 @@ import { AuthModule } from './auth/auth.module';
     CourseModule,
     UserModule,
     AuthModule,
+    ConfigModule.forRoot({
+      isGlobal: true,
+      cache: true,
+      validate,
+    }),
   ],
   controllers: [],
   providers: [],
