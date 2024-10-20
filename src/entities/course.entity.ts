@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -24,6 +25,9 @@ export class CourseEntity {
 
   @Column()
   url: string;
+
+  @ManyToMany(() => UserEntity, (user) => user.enrolledCourses)
+  students: UserEntity[];
 
   @CreateDateColumn({ type: 'datetime' })
   createdAt: Date;
